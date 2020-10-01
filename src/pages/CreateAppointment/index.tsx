@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useAuth } from '../../hooks/Auth';
 import {
   Container,
@@ -13,6 +14,8 @@ import {
   ProviderContainer,
   ProviderAvatar,
   ProviderName,
+  Calendar,
+  Title,
 } from './styles';
 
 import api from '../../services/api';
@@ -35,6 +38,7 @@ const CreateAppointment: React.FC = () => {
 
   const { goBack } = useNavigation();
 
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [providers, setProviders] = useState<Provider[]>([]);
   const [selectedProvider, setSelectedProvidder] = useState(
     routeParams.providerId,
@@ -82,6 +86,17 @@ const CreateAppointment: React.FC = () => {
           )}
         />
       </ProvidersListContainer>
+      <Calendar>
+        <Title>Escolha a data</Title>
+        {showDatePicker && (
+          <DateTimePicker
+            mode="date"
+            display="calendar"
+            textColor="#f4ede8"
+            value={new Date()}
+          />
+        )}
+      </Calendar>
     </Container>
   );
 };
