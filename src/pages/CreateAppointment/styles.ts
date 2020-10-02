@@ -76,3 +76,18 @@ export const Title = styled.Text`
   font-size: 24px;
   margin: 0 24px 24px;
 `;
+
+export const OpenDatePickerButton = styled(RectButton)`
+  height: 46px;
+  background: #ff9900;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 24px;
+`;
+
+export const OpenDatePickerText = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  color: #232129;
+  font-size: 16px;
+`;
