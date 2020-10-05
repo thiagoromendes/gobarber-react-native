@@ -20,6 +20,12 @@ import {
   Title,
   OpenDatePickerButton,
   OpenDatePickerText,
+  Schedule,
+  Section,
+  SectionTitle,
+  SectionContent,
+  Hour,
+  HourText,
 } from './styles';
 
 import api from '../../services/api';
@@ -49,6 +55,7 @@ const CreateAppointment: React.FC = () => {
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedHour, setSelectedHour] = useState(0);
   const [availability, setAvailability] = useState<AvailabilityItem[]>([]);
   const [providers, setProviders] = useState<Provider[]>([]);
   const [selectedProvider, setSelectedProvidder] = useState(
@@ -99,6 +106,10 @@ const CreateAppointment: React.FC = () => {
     },
     [],
   );
+
+  const handleSelectHour = useCallback((hour: number) => {
+    setSelectedHour(hour);
+  }, []);
 
   const morningAvailability = useMemo(() => {
     return availability
@@ -168,13 +179,48 @@ const CreateAppointment: React.FC = () => {
           />
         )}
       </Calendar>
-      {morningAvailability.map(({ hourFormatted }) => (
-        <Title key={hourFormatted}>{hourFormatted}</Title>
-      ))}
 
-      {afternoonAvailability.map(({ hourFormatted }) => (
-        <Title key={hourFormatted}>{hourFormatted}</Title>
-      ))}
+      <Schedule>
+        <Title>Escolha o horário</Title>
+
+        <Section>
+          <SectionTitle>Manhã</SectionTitle>
+          <SectionContent>
+            {morningAvailability.map(({ hourFormatted, hour, available }) => (
+              <Hour
+                enabled={available}
+                selected={selectedHour === hour}
+                available={available}
+                key={hourFormatted}
+                onPress={() => handleSelectHour(hour)}
+              >
+                <HourText selected={selectedHour === hour}>
+                  {hourFormatted}
+                </HourText>
+              </Hour>
+            ))}
+          </SectionContent>
+        </Section>
+
+        <Section>
+          <SectionTitle>Tarde</SectionTitle>
+          <SectionContent>
+            {afternoonAvailability.map(({ hourFormatted, hour, available }) => (
+              <Hour
+                enabled={available}
+                selected={selectedHour === hour}
+                available={available}
+                key={hourFormatted}
+                onPress={() => handleSelectHour(hour)}
+              >
+                <HourText selected={selectedHour === hour}>
+                  {hourFormatted}
+                </HourText>
+              </Hour>
+            ))}
+          </SectionContent>
+        </Section>
+      </Schedule>
     </Container>
   );
 };
