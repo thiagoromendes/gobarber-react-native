@@ -137,3 +137,18 @@ export const HourText = styled.Text<HourTextProps>`
   font-family: 'RobotoSlab-Regular';
   font-size: 16px;
 `;
+
+export const CreateAppoitmentButton = styled(RectButton)`
+  height: 50px;
+  background: #ff9900;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 24px 24px;
+`;
+
+export const CreateAppoitmentButtonText = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  color: #232129;
+  font-size: 18px;
+`;
